@@ -3,7 +3,7 @@ import Config from 'Config'
 
 test('Should create a config tree structure and a flatten structure', () => {
   const config = new Config({
-    'my.key': true,
+    'hello.key': true,
     hello: {
       world: 325
     },
@@ -31,11 +31,15 @@ test('Should access config property with dot notation', () => {
 test('Should return object with all config properties', () => {
   const config = new Config({
     'key.value': true,
-    hello: 'world'
+    hello: 'world',
+    key: {
+      testing: false
+    }
   })
 
   expect(config.get()).toBe(config._config)
   expect(config.get().key.value).toBe(true)
+  expect(config.get('key')).toMatchSnapshot()
 })
 
 test(`Should return undefined if a config property isn't found`, () => {
@@ -55,6 +59,24 @@ test('Should mutate a config property with dot notation', () => {
   expect(config.get('key.value')).toBe(true)
 })
 
+test('Should set override object with new object', () => {
+  const config = new Config({
+    'key.value': false
+  })
+
+  config.set('key', {
+    value: true,
+    hello: 'world'
+  })
+
+  expect(config._config.key.hello).toBe('world')
+  expect(config._flattenConfig['key.hello']).toBe('world')
+  expect(config.get('key.hello')).toBe('world')
+  expect(config._config.key.value).toBe(true)
+  expect(config._flattenConfig['key.value']).toBe(true)
+  expect(config.get('key.value')).toBe(true)
+})
+
 test('Should merge existing config with a new object', () => {
   const config = new Config({ 'test.key': true })
 
@@ -65,6 +87,18 @@ test('Should merge existing config with a new object', () => {
 
   expect(config._config).toMatchSnapshot()
   expect(config._flattenConfig).toMatchSnapshot()
+})
+
+test('Should delete a config property', () => {
+  const config = new Config({
+    'some.key': true,
+    'some.test': true,
+    'someOtherKey': true,
+    hello: 'world'
+  })
+
+  config.unset('some')
+  expect(config._config).toMatchSnapshot()
 })
 
 test('Should merge existing config with a new config instance', () => {

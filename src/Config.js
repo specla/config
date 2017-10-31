@@ -82,8 +82,33 @@ export default class Config {
    * @return {Mixed}
    */
   set (key, value) {
-    this._flattenConfig[key] = value
-    return dot.set(this._config, key, value)
+    if (typeof value !== 'object' || Array.isArray(value)) {
+      this._flattenConfig[key] = value
+      return dot.set(this._config, key, value)
+    }
+
+    for (const prop in value) {
+      this.set(`${key}.${prop}`, value[prop])
+    }
+  }
+
+  /**
+   * Delete a config property with dot notation
+   * @param {String} key
+   */
+  unset (key) {
+    if (!key.includes('.')) {
+      key += '.'
+    }
+
+    for (const prop in this._flattenConfig) {
+      if (prop.includes(`${key}`)) {
+        delete this._flattenConfig[prop]
+      }
+    }
+
+    this._config = {}
+    this._parse(this._flattenConfig)
   }
 
   /**

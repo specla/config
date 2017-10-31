@@ -6,10 +6,8 @@ Object {
     "test",
   ],
   "hello": Object {
-    "world": 325,
-  },
-  "my": Object {
     "key": true,
+    "world": 325,
   },
 }
 `;
@@ -19,8 +17,15 @@ Object {
   "array": Array [
     "test",
   ],
+  "hello.key": true,
   "hello.world": 325,
-  "my.key": true,
+}
+`;
+
+exports[`Should delete a config property 1`] = `
+Object {
+  "hello": "world",
+  "someOtherKey": true,
 }
 `;
 
@@ -53,6 +58,13 @@ Object {
   "hello": "world",
   "test.key": true,
   "test.newKey": 325,
+}
+`;
+
+exports[`Should return object with all config properties 1`] = `
+Object {
+  "testing": false,
+  "value": true,
 }
 `;
 
