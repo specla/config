@@ -91,12 +91,14 @@ test('Should merge existing config with a new object', () => {
 
 test('Should delete a config property', () => {
   const config = new Config({
+    'my.config': true,
     'some.key': true,
     'some.test': true,
     'someOtherKey': true,
     hello: 'world'
   })
 
+  config.unset('my.config')
   config.unset('some')
   expect(config._config).toMatchSnapshot()
 })
