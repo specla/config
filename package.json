@@ -23,7 +23,14 @@
     "LICENSE"
   ],
   "keywords": [
-    "config"
+    "config",
+    "configuration",
+    "management",
+    "node",
+    "browsers",
+    "specla",
+    "dot",
+    "notation"
   ],
   "author": {
     "name": "Frederik Kvartborg Albertsen",
