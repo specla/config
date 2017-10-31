@@ -5,11 +5,14 @@
 [![Dependency Status](https://david-dm.org/specla/config.svg)](https://david-dm.org/specla/config)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+Manage configuration objects with ease.
+
 ### Install
 ```sh
 npm install @specla/config
 ```
 
+### Usage
 ```js
 import Config from '@specla/config'
 
@@ -19,6 +22,9 @@ const config = new Config({
 
 // Access property in the config
 config.get('my.config.key') // returns 'some value...'
+
+// Access part of config property
+config.get('my') // returns { config: { key: 'some value...' } }
 
 // Set or update a config property value
 config.set('my.config.key', 'updated value...')

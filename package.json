@@ -1,6 +1,6 @@
 {
   "name": "@specla/config",
-  "description": "Handle configuration with ease",
+  "description": "Manage configuration objects with ease",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
