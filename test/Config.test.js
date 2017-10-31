@@ -53,10 +53,14 @@ test('Should mutate a config property with dot notation', () => {
   })
 
   config.set('key.value', true)
+  config.set('key', {
+    'test.newValue': true
+  })
 
   expect(config._config.key.value).toBe(true)
   expect(config._flattenConfig['key.value']).toBe(true)
   expect(config.get('key.value')).toBe(true)
+  expect(config.get('key.test.newValue')).toBe(true)
 })
 
 test('Should set override object with new object', () => {
