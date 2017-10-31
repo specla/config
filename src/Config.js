@@ -55,7 +55,7 @@ export default class Config {
   }
 
   /**
-   * Get configuration from dot string
+   * Get config property from dot notation
    * @param  {String} key
    * @return {Mixed}
    */
@@ -76,7 +76,7 @@ export default class Config {
   }
 
   /**
-   * Set value for a given key
+   * Set value for a given key in dot notation
    * @param {String} key
    * @param {Mixed} value
    * @return {Mixed}
