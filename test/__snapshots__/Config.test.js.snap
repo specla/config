@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should create a config tree structure and a flatten structure 1`] = `
+Object {
+  "array": Array [
+    "test",
+  ],
+  "hello": Object {
+    "world": 325,
+  },
+  "my": Object {
+    "key": true,
+  },
+}
+`;
+
+exports[`Should create a config tree structure and a flatten structure 2`] = `
+Object {
+  "array": Array [
+    "test",
+  ],
+  "hello.world": 325,
+  "my.key": true,
+}
+`;
+
+exports[`Should merge existing config with a new config instance 1`] = `
+Object {
+  "test": Object {
+    "key": true,
+  },
+}
+`;
+
+exports[`Should merge existing config with a new config instance 2`] = `
+Object {
+  "test.key": true,
+}
+`;
+
+exports[`Should merge existing config with a new object 1`] = `
+Object {
+  "hello": "world",
+  "test": Object {
+    "key": true,
+    "newKey": 325,
+  },
+}
+`;
+
+exports[`Should merge existing config with a new object 2`] = `
+Object {
+  "hello": "world",
+  "test.key": true,
+  "test.newKey": 325,
+}
+`;
+
+exports[`Should throw error if invalid arguments are given to the constructor 1`] = `"Config does only accept an object as the first argument"`;
+
+exports[`Should throw error if invalid arguments are given to the constructor 2`] = `"Config does only accept an object as the first argument"`;
