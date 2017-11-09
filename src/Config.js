@@ -114,6 +114,7 @@ export default class Config {
   /**
    * Merge a new config with the current config
    * @param  {Object} config
+   * @return {Config}
    */
   merge (config) {
     if (config instanceof Config) {
@@ -121,5 +122,7 @@ export default class Config {
     }
 
     this._parse(Object.assign({}, this._flattenConfig, config))
+
+    return this
   }
 }

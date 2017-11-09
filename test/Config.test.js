@@ -110,11 +110,12 @@ test('Should delete a config property', () => {
 test('Should merge existing config with a new config instance', () => {
   const config = new Config({ 'test.key': true })
 
-  config.merge(new Config({
+  const instance = config.merge(new Config({
     'test.newKey': 325,
     hello: 'world'
   }))
 
   expect(config._config).toMatchSnapshot()
   expect(config._flattenConfig).toMatchSnapshot()
+  expect(instance).toBe(config)
 })
