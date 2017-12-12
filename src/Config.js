@@ -59,7 +59,7 @@ export default class Config {
    * @param  {Object} config
    * @return {Object}
    */
-  _parseConfig (config) {
+  _evalFuncProps (config) {
     const copyConfig = Object.assign({}, config)
 
     for (const key in copyConfig) {
@@ -68,7 +68,7 @@ export default class Config {
       }
 
       if (!Array.isArray(copyConfig[key]) && typeof copyConfig[key] === 'object') {
-        copyConfig[key] = this._parseConfig(copyConfig[key])
+        copyConfig[key] = this._evalFuncProps(copyConfig[key])
       }
     }
 
@@ -86,7 +86,7 @@ export default class Config {
     let value
 
     if (!key) {
-      value = this._parseConfig(this._config)
+      value = this._evalFuncProps(this._config)
     }
 
     if (!value && this._flattenConfig[key]) {
@@ -100,7 +100,7 @@ export default class Config {
     }
 
     if (!Array.isArray(value) && typeof value === 'object') {
-      return this._parseConfig(value)
+      return this._evalFuncProps(value)
     }
 
     if (typeof value === 'function') {
