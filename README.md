@@ -37,3 +37,15 @@ config.merge({
   'my.config.newKey': 'other key...'
 })
 ```
+
+### Functional properties
+Specla config ships with functional properties which is a dynamic property that
+has a relation to an other config property.
+```js
+const config = new Config({
+  'normal.prop': 'test',
+  'func.prop': config => config.get('normal.prop') + ' functional property'
+})
+
+config.get('func.prop') // will return "test functional property"
+```

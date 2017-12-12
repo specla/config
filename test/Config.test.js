@@ -32,12 +32,13 @@ test('Should return object with all config properties', () => {
   const config = new Config({
     'key.value': true,
     hello: 'world',
+    'func': config => 'hello ' + config.get('hello'),
     key: {
       testing: false
     }
   })
 
-  expect(config.get()).toBe(config._config)
+  expect(config.get()).toMatchSnapshot()
   expect(config.get().key.value).toBe(true)
   expect(config.get('key')).toMatchSnapshot()
 })
@@ -118,4 +119,13 @@ test('Should merge existing config with a new config instance', () => {
   expect(config._config).toMatchSnapshot()
   expect(config._flattenConfig).toMatchSnapshot()
   expect(instance).toBe(config)
+})
+
+test('Should invoke the functional property and parse it the config as an argument', () => {
+  const config = new Config({
+    'test.key': 'test',
+    'test.func.prop': config => config.get('test.key') + ' value'
+  })
+
+  expect(config.get('test.func.prop')).toBe('test value')
 })

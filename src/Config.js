@@ -55,24 +55,55 @@ export default class Config {
   }
 
   /**
+   * Loop through the config object an invoke functional properties
+   * @param  {Object} config
+   * @return {Object}
+   */
+  _parseConfig (config) {
+    const copyConfig = Object.assign({}, config)
+
+    for (const key in copyConfig) {
+      if (typeof copyConfig[key] === 'function') {
+        copyConfig[key] = copyConfig[key](this)
+      }
+
+      if (!Array.isArray(copyConfig[key]) && typeof copyConfig[key] === 'object') {
+        this._parseConfig(copyConfig[key])
+      }
+    }
+
+    return copyConfig
+  }
+
+  /**
    * Get config property from dot notation
+   * If the property is a function then invoke it with the config object
+   * as the first argument
    * @param  {String} key
    * @return {Mixed}
    */
   get (key) {
+    let value
+
     if (!key) {
-      return this._config
+      value = this._parseConfig(this._config)
     }
 
-    if (this._flattenConfig[key]) {
-      return this._flattenConfig[key]
+    if (!value && this._flattenConfig[key]) {
+      value = this._flattenConfig[key]
     }
 
-    try {
-      return dot.get(this._config, key)
-    } catch (err) {
-      return undefined
+    if (!value) {
+      try {
+        value = dot.get(this._config, key)
+      } catch (err) {}
     }
+
+    if (typeof value === 'function') {
+      return value(this)
+    }
+
+    return value
   }
 
   /**
