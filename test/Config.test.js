@@ -34,6 +34,7 @@ test('Should return object with all config properties', () => {
     hello: 'world',
     'func': config => 'hello ' + config.get('hello'),
     key: {
+      'func': config => config.get('hello'),
       testing: false
     }
   })

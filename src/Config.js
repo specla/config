@@ -68,7 +68,7 @@ export default class Config {
       }
 
       if (!Array.isArray(copyConfig[key]) && typeof copyConfig[key] === 'object') {
-        this._parseConfig(copyConfig[key])
+        copyConfig[key] = this._parseConfig(copyConfig[key])
       }
     }
 
@@ -97,6 +97,10 @@ export default class Config {
       try {
         value = dot.get(this._config, key)
       } catch (err) {}
+    }
+
+    if (!Array.isArray(value) && typeof value === 'object') {
+      return this._parseConfig(value)
     }
 
     if (typeof value === 'function') {

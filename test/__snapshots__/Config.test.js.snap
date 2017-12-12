@@ -66,6 +66,7 @@ Object {
   "func": "hello world",
   "hello": "world",
   "key": Object {
+    "func": "world",
     "testing": false,
     "value": true,
   },
@@ -74,6 +75,7 @@ Object {
 
 exports[`Should return object with all config properties 2`] = `
 Object {
+  "func": "world",
   "testing": false,
   "value": true,
 }
